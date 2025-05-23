@@ -39,7 +39,7 @@
 
     <div id="mainScreen">
         <h2 id="counterLabel"></h2>
-        <button onclick="incrementCounter()">Touch Me</button>
+        <button id="button" onclick="incrementCounter()">Touch Me</button>
     </div>
 
     <script>
@@ -78,6 +78,7 @@
 
                 jwtToken = data.token;
                 counter = data.counter;
+                document.getElementById('button').disabled = data.buttonReady;
 
                 document.getElementById('counterLabel').innerText = `I was touched by ${username} ${counter} times`;
                 document.getElementById('loginScreen').style.display = 'none';
@@ -127,11 +128,18 @@
                 });
 
                 const data = await response.json();
+                const button = document.getElementById('button');
+                if (response.status === 429) {
+                    button.disabled = true;
+                    showAlert("Error", `Wait ${data.waitTime} more minutes`);
+                }
+                
                 if (data.error) {
                     showAlert("Error", data.error);
                 } else {
                     counter = data.counter;
                     document.getElementById('counterLabel').innerText = `I was touched by ${username} ${counter} times`;
+                    button.disabled = true;
                 }
             } catch (e) {
                 showAlert("Error", e.message);
