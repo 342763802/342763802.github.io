@@ -108,8 +108,6 @@
                 const data = await response.json();
                 if (data.error) {
                     showAlert("Error", data.error);
-                } else {
-                    showAlert("Success", data.message);
                 }
             } catch (e) {
                 showAlert("Error", e.message);
