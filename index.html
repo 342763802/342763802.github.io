@@ -152,7 +152,7 @@
 
                 jwtToken = data.token;
                 counter = data.counter;
-                document.getElementById('button').disabled = data.buttonReady;
+                document.getElementById('button').disabled = !data.buttonReady;
 
                 document.getElementById('counterLabel').innerText = `I was touched by ${username} ${counter} times`;
                 document.getElementById('loginScreen').style.display = 'none';
