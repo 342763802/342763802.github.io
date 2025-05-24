@@ -6,47 +6,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Counter</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-        .hidden {
-            display: none;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f2f5;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
 
-        .alert {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-        }
+    .container {
+        background: white;
+        border-radius: 12px;
+        padding: 30px 40px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
 
-        ol {
-            list-style: none;
-            padding-left: 0;
-        }
-    </style>
+    h2 {
+        margin-bottom: 20px;
+        color: #222;
+    }
+
+    p {
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px 15px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button:disabled {
+        background-color: #888;
+        cursor: not-allowed;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #leaderList {
+        list-style: none;
+        padding-left: 0;
+        text-align: left;
+        margin-top: 15px;
+    }
+
+    #leaderList li {
+        padding: 8px 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .spaced-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
 </head>
 
 <body>
-    <div id="loginScreen">
+    <div id="loginScreen" class="container">
         <h2>Welcome</h2>
-        <p>Check status here: <a>https://stats.uptimerobot.com/I7Cuda1VdZ</a></p>
+        <p>Check status here: <a href="https://stats.uptimerobot.com/I7Cuda1VdZ">https://stats.uptimerobot.com/I7Cuda1VdZ</a></p>
         <input type="text" id="user" placeholder="Username"><br><br>
         <input type="password" id="pass" placeholder="Password"><br><br>
         <button onclick="login()">Login</button>
         <button onclick="create()">Create Account</button>
     </div>
 
-    <div id="mainScreen" class="hidden">
+    <div id="mainScreen" class="container hidden">
         <h2 id="counterLabel"></h2>
-        <button id="button" onclick="incrementCounter()">Touch Me</button>
-        <button onclick="checkTime()">Check Time</button>
-        <button onclick="leaderboard()">View Leaderboard</button>
+        <div class="spaced-buttons">
+          <button id="button" onclick="incrementCounter()">Touch Me</button>
+          <button onclick="checkTime()">Check Time</button>
+          <button onclick="leaderboard()">View Leaderboard</button>
+        </div>
     </div>
 
-    <div id="leaderScreen" class="hidden">
+    <div id="leaderScreen" class="container hidden">
         <h2>Leaderboard</h2>
         <ol id="leaderList"></ol>
         <button onclick="back()">Back</button>
@@ -89,7 +172,7 @@
             }
         }
 
-        async function back() {
+        function back() {
             document.getElementById('leaderScreen').style.display = 'none';
             document.getElementById('mainScreen').style.display = 'block';
         }
