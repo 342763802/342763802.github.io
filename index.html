@@ -12,10 +12,6 @@
             padding: 50px;
         }
 
-        #mainScreen {
-            display: none;
-        }
-
         .hidden {
             display: none;
         }
@@ -37,10 +33,17 @@
         <button onclick="create()">Create Account</button>
     </div>
 
-    <div id="mainScreen">
+    <div id="mainScreen" class="hidden">
         <h2 id="counterLabel"></h2>
         <button id="button" onclick="incrementCounter()">Touch Me</button>
         <button onclick="checkTime()">Check Time</button>
+        <button onclick="leaderboard()">View Leaderboard</button>
+    </div>
+
+    <div id="leaderScreen" class="hidden">
+        <h2>Leaderboard</h2>
+        <ol id="leaderList"></ol>
+        <button onclick="back()">Back</button>
     </div>
 
     <script>
@@ -52,6 +55,36 @@
         function showAlert(title, message) {
             alert(title + "\n" + message);
             console.log(title + ": " + message);
+        }
+
+        async function leaderboard() {
+            try {
+                const response = await fetch("https://server-2zda.onrender.com/leaderboard");
+                const data = await response.json();
+        
+                if (data.error) {
+                    showAlert("Error", data.error);
+                    return;
+                }
+
+                const list = document.getElementById('leaderList');
+                list.innerHTML = "";
+
+                data.leaderboard.forEach((user, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${index + 1}. ${user.username} - ${user.counter}`;
+                    list.appendChild(li);
+                });
+
+                document.getElementById('leaderScreen').style.display = 'block';
+            } catch (e) {
+                showAlert("Error", e.message);
+            }
+        }
+
+        async function back() {
+            document.getElementById('leaderScreen').style.display = 'none';
+            document.getElementById('mainScreen').style.display = 'block';
         }
 
         async function login() {
