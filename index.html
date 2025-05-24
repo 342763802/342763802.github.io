@@ -37,6 +37,7 @@
         h2 {
             margin-bottom: 20px;
             color: #222;
+            font-size: 1rem;
         }
 
         p {
@@ -207,7 +208,7 @@
                 counter = data.counter;
                 document.getElementById('button').disabled = !data.buttonReady;
 
-                document.getElementById('counterLabel').innerText = `I was touched by ${username} ${counter}times`;
+                document.getElementById('counterLabel').innerText = `I was touched by ${username} ${counter} ` + (counter === 1 ? "time" : "times");
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainScreen').style.display = 'block';
             }
