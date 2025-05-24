@@ -65,16 +65,24 @@
         async function serverReady() {
             const start = performance.now();
             try {
-                const res = await fetch('https://server-2zda.onrender.com/ping');
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000); // 10s max
+                const res = await fetch('https://server-2zda.onrender.com/ping', {
+                    signal: controller.signal
+                });
+                clearTimeout(timeout);
                 const duration = performance.now() - start;
-                if (duration > 3000) {
-                    showAlert("Server", "Server is spinning up");
+                if (!res.ok) {
+                    showAlert("Server", "Server responded with an error");
                     return false;
-                } else {
-                    return true;
                 }
+                if (duration > 3000) {
+                    showAlert("Server", "Server is spinning up. Try again in a few seconds.");
+                    return false;
+                }
+                return true;
             } catch (err) {
-                showAlert("Server", "Server down");
+                showAlert("Server", "Server is down or unreachable");
                 return false;
             }
         }
