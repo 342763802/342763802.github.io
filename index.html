@@ -163,7 +163,7 @@
 
                 data.leaderboard.forEach((user, index) => {
                     const li = document.createElement('li');
-                    li.textContent = `${index + 1}. ${user.username} - ${user.counter}` + (user.counter === 1 ? "touch" : "touches");
+                    li.textContent = `${index + 1}. ${user.username} - ${user.counter} ` + (user.counter === 1 ? "touch" : "touches");
                     list.appendChild(li);
                 });
 
