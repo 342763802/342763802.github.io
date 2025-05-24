@@ -40,6 +40,7 @@
     <div id="mainScreen">
         <h2 id="counterLabel"></h2>
         <button id="button" onclick="incrementCounter()">Touch Me</button>
+        <button onclick="checkTime()">Check Time</button>
     </div>
 
     <script>
@@ -111,12 +112,34 @@
             }
         }
 
+        async function checkTime() {
+            if (!jwtToken) {
+                showAlert("Error", "Not Authenticated. Please login first.");
+                return;
+            }
+            try {
+                const response = await fetch("https://server-2zda.onrender.com/time", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + jwtToken
+                    },
+                    body: JSON.stringify({ counter: counter })
+                });
+
+                const data = await response.json();
+                const button = document.getElementById('button');
+                showAlert("Wait", `Wait ${data.waitTime} minutes before trying again`);
+            } catch (e) {
+                showAlert("Error", e.message);
+            }
+        }
+
         async function incrementCounter() {
             if (!jwtToken) {
                 showAlert("Error", "Not Authenticated. Please login first.");
                 return;
             }
-
             try {
                 const response = await fetch("https://server-2zda.onrender.com/update", {
                     method: "POST",
