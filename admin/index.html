@@ -108,7 +108,8 @@
     </div>
 
     <div id="mainScreen" class="container hidden">
-        <h2>I will make the admin panel here later</h2>
+        <p>I will make the admin panel here later</p>
+        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
@@ -148,6 +149,12 @@
             catch (e) {
                 showAlert("Error", e.message);
             }
+        }
+
+        async function logout() {
+            password = '';
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('mainScreen').style.display = 'none';
         }
     </script>
 </body>
