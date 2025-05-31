@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter</title>
+    <title>Admin</title>
     <style>
         * {
             box-sizing: border-box;
@@ -152,7 +152,7 @@
         }
 
         async function logout() {
-            password = '';
+            document.getElementById('pass').value = '';
             document.getElementById('loginScreen').style.display = 'block';
             document.getElementById('mainScreen').style.display = 'none';
         }
