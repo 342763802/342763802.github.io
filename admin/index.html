@@ -17,12 +17,13 @@
     </div>
 
     <div id="mainScreen" class="container hidden">
-        <p>Admin controls here</p>
+        <p id="text"></p>
         <button onclick="logout()">Logout</button>
     </div>
 
     <script>
         let adminPassword = 'admin-password';
+        let password = '';
 
         function showAlert(title, message) {
             alert(title + "\n" + message);
@@ -51,6 +52,10 @@
                     return;
                 }
 
+                if (data.text) {
+                    document.getElementById('text').value = data.text;
+                }
+                
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainScreen').style.display = 'block';
             }
@@ -59,7 +64,8 @@
             }
         }
 
-        async function logout() {
+        function logout() {
+            password = '';
             document.getElementById('pass').value = '';
             document.getElementById('loginScreen').style.display = 'block';
             document.getElementById('mainScreen').style.display = 'none';
