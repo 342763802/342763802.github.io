@@ -17,17 +17,17 @@
     </div>
 
     <div id="mainScreen" class="container hidden">
-        <table id="userTable" border="1">
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Password</th>
-      <th>Counter</th>
-      <th>Last Update</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Counter</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
         <button onclick="logout()">Logout</button>
     </div>
 
@@ -61,7 +61,7 @@
                     showAlert("Error", data.error);
                     return;
                 }
-                
+
                 response = await fetch(`https://server-2zda.onrender.com/view?password=${password}`);
                 data = await response.json();
 
@@ -72,30 +72,30 @@
 
                 const tbody = document.querySelector('#userTable tbody');
 
-  for (const user of data.users) {
-    const tr = document.createElement('tr');
+                for (const user of data.users) {
+                    const tr = document.createElement('tr');
 
-    const username = document.createElement('td');
-    username.textContent = user.username;
+                    const username = document.createElement('td');
+                    username.textContent = user.username;
 
-    const password = document.createElement('td');
-    password.textContent = user.password;
+                    const password = document.createElement('td');
+                    password.textContent = user.password;
 
-    const counter = document.createElement('td');
-    counter.textContent = user.counter;
+                    const counter = document.createElement('td');
+                    counter.textContent = user.counter;
 
-    const lastUpdate = document.createElement('td');
-    const date = new Date(user.lastUpdate);
-    lastUpdate.textContent = date.toLocaleString();
+                    const lastUpdate = document.createElement('td');
+                    const date = new Date(user.lastUpdate);
+                    lastUpdate.textContent = date.toLocaleString();
 
-    tr.appendChild(username);
-    tr.appendChild(password);
-    tr.appendChild(counter);
-    tr.appendChild(lastUpdate);
+                    tr.appendChild(username);
+                    tr.appendChild(password);
+                    tr.appendChild(counter);
+                    tr.appendChild(lastUpdate);
 
-    tbody.appendChild(tr);
-  }
-                
+                    tbody.appendChild(tr);
+                }
+
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainScreen').style.display = 'block';
             } catch (e) {
