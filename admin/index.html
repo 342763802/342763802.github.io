@@ -17,17 +17,20 @@
     </div>
 
     <div id="mainScreen" class="container hidden">
-        <table id="userTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Counter</th>
-                    <th>Last Update</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="table-container">
+            <h2>User Stats</h2>
+            <table id="userTable" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Counter</th>
+                        <th>Last Update</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
         <button onclick="logout()">Logout</button>
     </div>
 
