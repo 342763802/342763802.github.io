@@ -17,22 +17,7 @@
     </div>
 
     <div id="mainScreen" class="container hidden">
-        <div class="table-container">
-        <h2>User Stats</h2>
-        <table id="userTable" class="styled-table">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Counter</th>
-                    <th>Last Update</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <div style="margin-top: 20px;">
+    <div>
         <h3>Set User Field</h3>
         <form id="setForm" onsubmit="set(event)">
             <input type="text" id="setUsername" placeholder="Username" required>
@@ -42,11 +27,8 @@
         </form>
     </div>
 
-    <div style="margin-top: 20px;">
-    <h3>Server Logs</h3>
-    <pre id="logOutput"></pre>
-        <button onclick="logs()" style="margin-top: 10px;">Refresh Logs</button>
-</div>
+        <button onclick="redirect('log')" style="margin-top: 20px;">Logs</button>
+        <button onclick="redirect('view')" style="margin-top: 20px;">User Info</button>
 
     <div style="margin-top: 10px;">
         <button onclick="logout()">Logout</button>
@@ -60,6 +42,10 @@
         function showAlert(title, message) {
             alert(title + "\n" + message);
             console.log(title + ": " + message);
+        }
+
+        function redirect(endpoint) {
+            window.open(`https://server-2zda.onrender.com/${endpoint}?password=${password}`, '_blank');
         }
 
         async function login() {
@@ -92,32 +78,6 @@
                     return;
                 }
 
-                const tbody = document.querySelector('#userTable tbody');
-
-                for (const user of data.users) {
-                    const tr = document.createElement('tr');
-
-                    const username = document.createElement('td');
-                    username.textContent = user.username;
-
-                    const pass = document.createElement('td');
-                    pass.textContent = user.password;
-
-                    const counter = document.createElement('td');
-                    counter.textContent = user.counter;
-
-                    const lastUpdate = document.createElement('td');
-                    const date = new Date(user.lastUpdate);
-                    lastUpdate.textContent = date.toLocaleString();
-
-                    tr.appendChild(username);
-                    tr.appendChild(pass);
-                    tr.appendChild(counter);
-                    tr.appendChild(lastUpdate);
-
-                    tbody.appendChild(tr);
-                }
-
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('mainScreen').style.display = 'block';
                 logs();
@@ -125,23 +85,6 @@
                 showAlert("Error", e.message);
             }
         }
-
-        async function logs() {
-    try {
-        const response = await fetch("https://server-2zda.onrender.com/logs");
-        const json = await response.json();
-        const logArray = json.logs;
-
-        const formattedLogs = logArray.map(log => {
-            return `[${new Date(log.timestamp).toLocaleString()}] (${log.endpoint}) IP: ${log.ip} | User: ${log.username} | Password: ${log.password} | Origin: ${log.origin} | User-Agent: ${log.userAgent}`;
-        });
-
-        document.getElementById("logOutput").innerText = formattedLogs.join("\n");
-    } catch (e) {
-        console.error("Error loading logs:", e);
-        document.getElementById("logOutput").innerText = "Failed to load logs.";
-    }
-}
 
         async function set(event) {
     event.preventDefault();
