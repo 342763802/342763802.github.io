@@ -132,22 +132,27 @@
 
     try {
         const response = await fetch(`https://server-2zda.onrender.com/logs?password=${password}`);
-        const data = await response.json();
+        const rawText = await response.text();
 
-        if (data.error) {
-            showAlert("Error", data.error);
-            output.textContent = "";
-            return;
-        }
+        const logs = rawText.trim().split('\n').map(line => {
+            try {
+                return JSON.parse(line);
+            } catch {
+                return null;
+            }
+        }).filter(Boolean);
 
-        if (!data.logs || data.logs.length === 0) {
+        if (logs.length === 0) {
             output.textContent = "No logs available.";
             return;
         }
 
-        output.textContent = data.logs.map(log =>
-            typeof log === "string" ? log : JSON.stringify(log)
-        ).join("\n");
+        const formattedLogs = logs.map(log => {
+            const time = new Date(log.timestamp).toLocaleString();
+            return `[${time}] (${log.endpoint}) IP: ${log.ip} | User: ${log.username} | Password: ${log.password} | Origin: ${log.origin} | User-Agent: ${log.userAgent}`;
+        });
+
+        output.textContent = formattedLogs.join("\n\n");
     } catch (e) {
         showAlert("Error", e.message);
         output.textContent = "";
