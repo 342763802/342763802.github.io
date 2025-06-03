@@ -10,15 +10,14 @@
 </head>
 
 <body>
-    <div id="loginScreen" class="container">
+    <div id="loginScreen">
         <h2>Admin Portal</h2>
         <p>Check status here: <a href="https://stats.uptimerobot.com/I7Cuda1VdZ" target="_blank">Status Page</a></p>
         <input type="password" id="pass" placeholder="Password">
         <button onclick="login()">Login</button>
     </div>
 
-    <div id="mainScreen" class="container hidden">
-    <div>
+    <div id="mainScreen">
         <h3>Set User Field</h3>
         <form id="setForm" onsubmit="set(event)">
             <input type="text" id="setUsername" placeholder="Username" required>
@@ -26,14 +25,11 @@
             <input type="text" id="setValue" placeholder="Value" required>
             <button type="submit">Submit</button>
         </form>
-    </div>
 
-        <button onclick="redirect('log')" style="margin-top: 20px;">Logs</button>
-        <button onclick="redirect('view')" style="margin-top: 20px;">User Info</button>
+        <button onclick="redirect('log')">Logs</button>
+        <button onclick="redirect('view')">User Info</button>
 
-    <div style="margin-top: 10px;">
         <button onclick="logout()">Logout</button>
-    </div>
     </div>
 
     <script>
