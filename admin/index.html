@@ -17,18 +17,18 @@
         <button onclick="login()">Login</button>
     </div>
 
-    <div id="mainScreen">
+    <div id="mainScreen" style="display: none;">
         <h3>Set User Field</h3>
         <form id="setForm" onsubmit="set(event)">
-            <input type="text" id="setUsername" placeholder="Username" required>
-            <input type="text" id="setField" placeholder="Field (e.g. counter)" required>
-            <input type="text" id="setValue" placeholder="Value" required>
+            <input type="text" id="setUsername" placeholder="Username" required><br>
+            <input type="text" id="setField" placeholder="Field (e.g. counter)" required><br>
+            <input type="text" id="setValue" placeholder="Value" required><br>
             <button type="submit">Submit</button>
         </form>
 
+        <h3>Other admin controls</h3>
         <button onclick="redirect('log')">Logs</button>
         <button onclick="redirect('view')">User Info</button>
-
         <button onclick="logout()">Logout</button>
     </div>
 
