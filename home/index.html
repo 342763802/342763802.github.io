@@ -10,25 +10,23 @@
 </head>
 
 <body>
-    <div id="loginScreen" class="container">
+    <div id="loginScreen">
         <h2>Welcome</h2>
         <p>Check status here: <a href="https://stats.uptimerobot.com/I7Cuda1VdZ" target="_blank">Status page</a></p>
-        <input type="text" id="user" placeholder="Username"><br><br>
-        <input type="password" id="pass" placeholder="Password"><br><br>
+        <input type="text" id="user" placeholder="Username"><br>
+        <input type="password" id="pass" placeholder="Password"><br>
         <button onclick="login()">Login</button>
         <button onclick="create()">CreateAccount</button>
     </div>
 
-    <div id="mainScreen" class="container hidden">
+    <div id="mainScreen" style="display: none;">
         <h2 id="counterLabel"></h2>
-        <div class="spaced-buttons">
-            <button id="button" onclick="incrementCounter()">Touch Me</button>
-            <button onclick="checkTime()">Check Time</button>
-            <button onclick="leaderboard()">View Leaderboard</button>
-        </div>
+        <button id="button" onclick="incrementCounter()">Touch Me</button><br>
+        <button onclick="checkTime()">Check Time</button><br>
+        <button onclick="leaderboard()">View Leaderboard</button>
     </div>
 
-    <div id="leaderScreen" class="container hidden">
+    <div id="leaderScreen" style="display: none;">
         <h2>Leaderboard</h2>
         <ol id="leaderList"></ol>
         <button onclick="back()">Back</button>
