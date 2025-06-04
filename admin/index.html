@@ -97,6 +97,7 @@
             showAlert("Error", data.error);
         } else {
             showAlert("Success", "Field updated successfully.");
+            document.getElementById('setForm').reset();
         }
     } catch (e) {
         showAlert("Error", e.message);
